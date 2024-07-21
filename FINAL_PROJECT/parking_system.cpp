@@ -180,7 +180,7 @@ void registerUser() {
 bool loginUser(string &loggedInUser) {
     string username, password, pin;
     do{
-        cout << "Enter new username (at least 8 characters): ";
+        cout << "Enter username (at least 8 characters): ";
         cin.ignore(); 
         getline(cin, username);
 
