@@ -237,3 +237,121 @@ void parkCar(string loggedInUser) {
     availableSpaces--;
     cout << "Car parked successfully in space " << spaceNumber << ". " << availableSpaces << " parking spaces remaining." << endl;
 }
+void unparkCar(string loggedInUser) {
+    if (parkedCars.find(loggedInUser) == parkedCars.end()) {
+        cout << "You do not have a car parked." << endl;
+        return;
+    }
+
+    int spaceNumber = parkedCars[loggedInUser];
+    cout << "Your car is parked at space " << spaceNumber << "!" << endl;
+    cout << "Would you like to unpark your car? [Y/N]: ";
+    char choice;
+    cin >> choice;
+    if (choice == 'Y' || choice == 'y') {
+        parkingSpaces[spaceNumber - 1] = "Open";
+        parkedCars.erase(loggedInUser);
+        availableSpaces++;
+        cout << "Car unparked from space " << spaceNumber << ". " << availableSpaces << " parking spaces remaining." << endl;
+    } else {
+        cout << "Unparking cancelled." << endl;
+    }
+}
+
+void checkAvailableSpaces() {
+    for (int i = 0; i < MAX_PARKING_SPACES; ++i) {
+        cout << "Space " << (i + 1) << ": " << parkingSpaces[i] << endl;
+    }
+}
+
+void createReservation() {
+    if (availableSpaces <= 0) {
+        cout << "All parking spaces are full. No more reservations can be made." << endl;
+        return;
+    }
+
+    string user;
+    int spaceNumber, plateNumber;
+
+    cout << "Enter username: ";
+    cin.ignore(); 
+    getline(cin, user); 
+    if (users.find(user) == users.end()) {
+        cout << "User not registered. Please register first." << endl;
+        return;
+    }
+
+    cout << "Enter space number (1-15): ";
+    spaceNumber = getValidNumber();
+
+    while (spaceNumber < 1 || spaceNumber > 15 || parkingSpaces[spaceNumber - 1] != "Open") {
+        if (parkingSpaces[spaceNumber - 1] != "Open") {
+            cout << "This parking slot is not available at the moment. Please choose another space." << endl;
+        } else {
+            cout << "Invalid space number. Enter another space number (1-15): ";
+        }
+        spaceNumber = getValidNumber();
+    }
+
+    cout << "Enter Car Plate Number: ";
+    plateNumber = getValidNumber();
+
+    reservations.addReservation(user, spaceNumber, plateNumber);
+    parkingSpaces[spaceNumber - 1] = "Reserved";
+    availableSpaces--;
+    cout << "Reservation created successfully! " << availableSpaces << " parking spaces remaining." << endl;
+}
+
+void readReservations() {
+    reservations.printReservations();
+}
+
+void updateReservation() {
+    string username;
+    int newSpaceNumber, newPlateNumber;
+
+    cout << "Enter your username: ";
+    cin.ignore(); 
+    getline(cin, username); 
+    Reservation* reservation = reservations.findReservationByUser(username);
+    if (!reservation) {
+        cout << "You do not have a reservation." << endl;
+        return;
+    }
+
+    cout << "Enter new space number (1-15): ";
+    newSpaceNumber = getValidNumber();
+    while (newSpaceNumber < 1 || newSpaceNumber > 15 || parkingSpaces[newSpaceNumber - 1] != "Open") {
+        if (parkingSpaces[newSpaceNumber - 1] != "Open") {
+            cout << "This parking slot is not available at the moment. Please choose another space." << endl;
+        } else {
+            cout << "Invalid space number. Enter another space number (1-15): ";
+        }
+        newSpaceNumber = getValidNumber();
+    }
+
+    cout << "Enter new Car Plate Number: ";
+    newPlateNumber = getValidNumber();
+
+    reservations.updateReservation(username, newSpaceNumber, newPlateNumber);
+    parkingSpaces[reservation->spaceNumber - 1] = "Open";
+    parkingSpaces[newSpaceNumber - 1] = "Reserved";
+    cout << "Reservation updated successfully!" << endl;
+}
+
+void deleteReservation() {
+    string username;
+    cout << "Enter your username: ";
+    cin.ignore();
+    getline(cin, username); 
+    Reservation* reservation = reservations.findReservationByUser(username);
+    if (!reservation) {
+        cout << "You do not have a reservation." << endl;
+        return;
+    }
+
+    reservations.removeReservation(username);
+    parkingSpaces[reservation->spaceNumber - 1] = "Open";
+    availableSpaces++;
+    cout << "Reservation deleted successfully!" << endl;
+}
