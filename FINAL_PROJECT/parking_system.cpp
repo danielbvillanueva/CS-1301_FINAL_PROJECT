@@ -154,8 +154,8 @@ void registerUser() {
     string username, password, pin;
     do{
         cout << "Enter new username (at least 8 characters): ";
-        cin.ignore(); // Ignore any leftover newline character in the input buffer
-        getline(cin, username); // Use getline to allow spaces
+        cin.ignore();
+        getline(cin, username); 
 
         if (username.length() <= 8) {
             cout << "Username must be at least 8 characters long. Try again." << endl;
@@ -181,8 +181,8 @@ bool loginUser(string &loggedInUser) {
     string username, password, pin;
     do{
         cout << "Enter new username (at least 8 characters): ";
-        cin.ignore(); // Ignore any leftover newline character in the input buffer
-        getline(cin, username); // Use getline to allow spaces
+        cin.ignore(); 
+        getline(cin, username);
 
         if (username.length() <= 8) {
             cout << "Username must be at least 8 characters long. Try again." << endl;
