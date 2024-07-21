@@ -1,6 +1,7 @@
 # Parking Management and Monitoring System
 
-![Screenshot_20240715_102032_Chrome](https://github.com/user-attachments/assets/e39d5641-da1f-4843-ac54-25cd367badae)
+<img src="https://github.com/user-attachments/assets/e39d5641-da1f-4843-ac54-25cd367badae" alt="Screenshot_20240715_102032_Chrome" width="300"/>
+
 
 A console-based application for managing parking spaces and reservations efficiently.
 
