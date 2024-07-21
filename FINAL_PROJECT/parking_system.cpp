@@ -122,3 +122,118 @@ public:
         } while (swapped);
     }
 };
+
+string parkingSpaces[MAX_PARKING_SPACES];
+int availableSpaces = MAX_PARKING_SPACES;
+
+unordered_map<string, string> users;
+unordered_map<string, int> parkedCars;
+
+ReservationList reservations;
+
+bool isValidNumber(const string& str) {
+    for (char c : str) {
+        if (!isdigit(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int getValidNumber() {
+    string input;
+    cin >> input;
+    while (!isValidNumber(input)) {
+        cout << "Invalid input. Please enter a number: ";
+        cin >> input;
+    }
+    return stoi(input);
+}
+
+void registerUser() {
+    string username, password, pin;
+    do{
+        cout << "Enter new username (at least 8 characters): ";
+        cin.ignore(); // Ignore any leftover newline character in the input buffer
+        getline(cin, username); // Use getline to allow spaces
+
+        if (username.length() <= 8) {
+            cout << "Username must be at least 8 characters long. Try again." << endl;
+        }
+    } while (username.length() <= 8);
+    
+    cout << "Enter PIN password (4 digits): ";
+    getline(cin, pin);
+    
+    if (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3])){
+        cout << "PIN must be 4 digits." << endl;
+    }
+    password = username + pin;
+    if (users.find(username) == users.end()) {
+        users[username] = password;
+        cout << "User registered successfully!" << endl;
+    } else {
+        cout << "Username already exists!" << endl;
+    }
+}
+
+bool loginUser(string &loggedInUser) {
+    string username, password, pin;
+    do{
+        cout << "Enter new username (at least 8 characters): ";
+        cin.ignore(); // Ignore any leftover newline character in the input buffer
+        getline(cin, username); // Use getline to allow spaces
+
+        if (username.length() <= 8) {
+            cout << "Username must be at least 8 characters long. Try again." << endl;
+        }
+    } while (username.length() <= 8);
+    
+    cout << "Enter PIN password (4 digits): ";
+    getline(cin, pin);
+    
+    if (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3])){
+        cout << "PIN must be 4 digits." << endl;
+    }
+    password = username + pin;
+    if (users.find(username) != users.end() && users[username] == password) {
+        cout << "Login successful!" << endl;
+        loggedInUser = username;
+        return true;
+    } else {
+        cout << "Login failed!" << endl;
+        return false;
+    }
+}
+
+void parkCar(string loggedInUser) {
+    if (availableSpaces <= 0) {
+        cout << "All parking spaces are full." << endl;
+        return;
+    }
+
+    cout << "Available parking spaces:" << endl;
+    for (int i = 0; i < MAX_PARKING_SPACES; ++i) {
+        if (parkingSpaces[i] == "Open") {
+            cout << "Space " << (i + 1) << endl;
+        }
+    }
+
+    int spaceNumber;
+    cout << "Enter space number to park (1-15): ";
+    spaceNumber = getValidNumber();
+
+    while (spaceNumber < 1 || spaceNumber > 15 || parkingSpaces[spaceNumber - 1] != "Open") {
+        if (parkingSpaces[spaceNumber - 1] != "Open") {
+            cout << "This space is not available. Please choose another space." << endl;
+        } else {
+            cout << "Invalid space number. Enter another space number (1-15): ";
+        }
+        spaceNumber = getValidNumber();
+    }
+
+    parkingSpaces[spaceNumber - 1] = "Occupied";
+    parkedCars[loggedInUser] = spaceNumber;
+    availableSpaces--;
+    cout << "Car parked successfully in space " << spaceNumber << ". " << availableSpaces << " parking spaces remaining." << endl;
+}
