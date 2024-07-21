@@ -355,3 +355,147 @@ void deleteReservation() {
     availableSpaces++;
     cout << "Reservation deleted successfully!" << endl;
 }
+
+void showMainMenu() {
+    cout << "_________________________________________________" << endl;
+    cout << "\nWelcome to Park Smart. Quick Park!" << endl;
+    cout << "\n1. Parking Menu" << endl;
+    cout << "2. Reservation Menu" << endl;
+    cout << "3. Back to Login" << endl;
+    cout << "\n________________________________________________________" << endl;
+}
+
+void showParkingMenu() {
+    cout << "_________________________________________________";
+    cout << "\nParking Menu:";
+    cout << "\n1. Park Car";
+    cout << "\n2. Unpark Car";
+    cout << "\n3. Check Available Spaces";
+    cout << "\n4. Back to Main Menu";
+    cout << "\n_______________________________________________________";
+}
+
+void showReservationMenu() {
+    cout << "___________________________________________________";
+    cout << "\nReservation Menu:";
+    cout << "\n1. Create Reservation";
+    cout << "\n2. Read Reservations";
+    cout << "\n3. Update Reservation";
+    cout << "\n4. Delete Reservation";
+    cout << "\n5. Sort Reservations";
+    cout << "\n6. Back to Main Menu";
+    cout << "\n_________________________________________________________";
+}
+
+int main() {
+    for (int i = 0; i < MAX_PARKING_SPACES; ++i) {
+        parkingSpaces[i] = "Open";
+    }
+
+    int choice;
+    bool loggedIn = false;
+    string loggedInUser;
+
+    do {
+        if (!loggedIn) {
+            cout << "_____________________________" << endl;
+            cout << "\nUser Registration!" << endl;
+            cout << "1. Register" << endl;
+            cout << "2. Login" << endl;
+            cout << "3. Exit" << endl;
+            cout << "\n__________________________________" << endl;
+            cout << "Enter choice: ";
+            choice = getValidNumber();
+
+            switch (choice) {
+                case 1:
+                    registerUser();
+                    break;
+                case 2:
+                    loggedIn = loginUser(loggedInUser);
+                    break;
+                case 3:
+                    cout << "Exiting..." << endl;
+                    return 0;
+                default:
+                    cout << "Invalid choice!" << endl;
+            }
+
+            if (loggedIn) {
+                cout << "Proceeding to main menu..." << endl;
+            }
+        } else {
+            showMainMenu();
+            cout << "\nEnter choice: ";
+            choice = getValidNumber();
+
+            switch (choice) {
+                case 1:
+                    int parkingChoice;
+                    do {
+                        showParkingMenu();
+                        cout << "\nEnter choice: ";
+                        parkingChoice = getValidNumber();
+
+                        switch (parkingChoice) {
+                            case 1:
+                                parkCar(loggedInUser);
+                                break;
+                            case 2:
+                                unparkCar(loggedInUser);
+                                break;
+                            case 3:
+                                checkAvailableSpaces();
+                                break;
+                            case 4:
+                                cout << "Returning to main menu..." << endl;
+                                break;
+                            default:
+                                cout << "Invalid choice!" << endl;
+                        }
+                    } while (parkingChoice != 4);
+                    break;
+                case 2:
+                    int reservationChoice;
+                    do {
+                        showReservationMenu();
+                        cout << "\nEnter choice: ";
+                        reservationChoice = getValidNumber();
+
+                        switch (reservationChoice) {
+                            case 1:
+                                createReservation();
+                                break;
+                            case 2:
+                                readReservations();
+                                break;
+                            case 3:
+                                updateReservation();
+                                break;
+                            case 4:
+                                deleteReservation();
+                                break;
+                            case 5:
+                                reservations.sortReservations();
+                                cout << "Reservations sorted by space number!" << endl;
+                                break;
+                            case 6:
+                                cout << "Returning to main menu..." << endl;
+                                break;
+                            default:
+                                cout << "Invalid choice!" << endl;
+                        }
+                    } while (reservationChoice != 6);
+                    break;
+                case 3:
+                    loggedIn = false;
+                    cout << "Logged out successfully!" << endl;
+                    break;
+                default:
+                    cout << "Invalid choice!" << endl;
+            }
+        }
+    } while (true);
+
+    return 0;
+}
