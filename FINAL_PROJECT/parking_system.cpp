@@ -155,7 +155,7 @@ void registerUser() {
     string username, password, pin;
     cin.ignore(); 
     do {
-        cout << "Enter new username (at least 8 characters): ";
+        cout << "Enter new username (must be 8 characters long): ";
         getline(cin, username); 
 
         if (username.length() < 8) {
@@ -194,7 +194,7 @@ bool loginUser(string &loggedInUser) {
     string username, password, pin;
     cin.ignore(); 
     do {
-        cout << "Enter username (at least 8 characters): ";
+        cout << "Enter your username: ";
         getline(cin, username); 
 
         if (username.length() < 8){
@@ -250,7 +250,7 @@ void parkCar(string loggedInUser) {
 
     while (spaceNumber < 1 || spaceNumber > 15 || parkingSpaces[spaceNumber - 1] != "Open") {
         if (parkingSpaces[spaceNumber - 1] != "Open") {
-            cout << "This space is not available. Please choose another space: " << endl;
+            cout << "This space is not available. Please choose another space: ";
         } else {
             cout << "Invalid space number. Enter another space number (1-15): ";
         }
