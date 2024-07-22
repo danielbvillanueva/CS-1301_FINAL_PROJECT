@@ -40,10 +40,10 @@ public:
         }
     }
 
-    void removeReservation(string user) {
+    void removeReservation(string user, int plateNumber) {
         if (!head) return;
 
-        if (head->user == user) {
+        if (head->user == user && head->plateNumber == plateNumber) {
             Reservation* toDelete = head;
             head = head->next;
             delete toDelete;
@@ -51,7 +51,7 @@ public:
         }
 
         Reservation* temp = head;
-        while (temp->next && temp->next->user != user) {
+        while (temp->next && (temp->next->user != user || temp->next->plateNumber != plateNumber)) {
             temp = temp->next;
         }
 
@@ -62,10 +62,10 @@ public:
         }
     }
 
-    Reservation* findReservationByUser(string user) {
+    Reservation* findReservationByUser(string user, int plateNumber) {
         Reservation* temp = head;
         while (temp) {
-            if (temp->user == user) {
+            if (temp->user == user && temp->plateNumber == plateNumber) {
                 return temp;
             }
             temp = temp->next;
@@ -81,13 +81,13 @@ public:
         }
     }
 
-    void updateReservation(string user, int newSpaceNumber, int newPlateNumber) {
-        Reservation* reservation = findReservationByUser(user);
+    void updateReservation(string user, int newSpaceNumber, int plateNumber) {
+        Reservation* reservation = findReservationByUser(user, plateNumber);
         if (reservation) {
-            reservation->updateReservation(newSpaceNumber, newPlateNumber);
+            reservation->updateReservation(newSpaceNumber, plateNumber);
             cout << "Reservation updated successfully!" << endl;
         } else {
-            cout << "Reservation not found for user " << user << "." << endl;
+            cout << "Reservation not found for user " << user << " with plate number " << plateNumber << "." << endl;
         }
     }
 
@@ -123,6 +123,7 @@ public:
     }
 };
 
+
 string parkingSpaces[MAX_PARKING_SPACES];
 int availableSpaces = MAX_PARKING_SPACES;
 
@@ -152,23 +153,35 @@ int getValidNumber() {
 
 void registerUser() {
     string username, password, pin;
-    do{
-        cout << "Enter new username (must be 8 characters): ";
-        cin.ignore();
+    cin.ignore(); 
+    do {
+        cout << "Enter new username (at least 8 characters): ";
         getline(cin, username); 
 
-        if (username.length() <= 8) {
+        if (username.length() < 8) {
             cout << "Username must be at least 8 characters long. Try again." << endl;
         }
-    } while (username.length() <= 8);
-    
-    cout << "Enter PIN password (4 digits): ";
-    getline(cin, pin);
-    
-    if (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3])){
-        cout << "PIN must be 4 digits." << endl;
-    }
+    } while (username.length() < 8);
+
+    do {
+        cout << "Enter PIN password (4 digits): ";
+        getline(cin, pin);
+
+        bool validPin = (pin.length() == 4);
+        for (char c : pin) {
+            if (!isdigit(c)) {
+                validPin = false;
+                break;
+            }
+        }
+
+        if (!validPin) {
+            cout << "PIN must be 4 digits. Try again." << endl;
+        }
+    } while (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3]));
+
     password = username + pin;
+
     if (users.find(username) == users.end()) {
         users[username] = password;
         cout << "User registered successfully!" << endl;
@@ -179,23 +192,35 @@ void registerUser() {
 
 bool loginUser(string &loggedInUser) {
     string username, password, pin;
-    do{
-        cout << "Enter username (must be 8 characters): ";
-        cin.ignore(); 
-        getline(cin, username);
+    cin.ignore(); 
+    do {
+        cout << "Enter username (at least 8 characters): ";
+        getline(cin, username); 
 
-        if (username.length() <= 8) {
+        if (username.length() < 8){
             cout << "Username must be at least 8 characters long. Try again." << endl;
         }
-    } while (username.length() <= 8);
-    
-    cout << "Enter PIN password (4 digits): ";
-    getline(cin, pin);
-    
-    if (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3])){
-        cout << "PIN must be 4 digits." << endl;
-    }
+    } while (username.length() < 8);
+
+    do {
+        cout << "Enter PIN password (4 digits): ";
+        getline(cin, pin);
+
+        bool validPin = (pin.length() == 4);
+        for (char c : pin) {
+            if (!isdigit(c)) {
+                validPin = false;
+                break;
+            }
+        }
+
+        if (!validPin) {
+            cout << "PIN must be 4 digits. Try again." << endl;
+        }
+    } while (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) || !isdigit(pin[2]) || !isdigit(pin[3]));
+
     password = username + pin;
+
     if (users.find(username) != users.end() && users[username] == password) {
         cout << "Login successful!" << endl;
         loggedInUser = username;
@@ -225,7 +250,7 @@ void parkCar(string loggedInUser) {
 
     while (spaceNumber < 1 || spaceNumber > 15 || parkingSpaces[spaceNumber - 1] != "Open") {
         if (parkingSpaces[spaceNumber - 1] != "Open") {
-            cout << "This space is not available. Please choose another space." << endl;
+            cout << "This space is not available. Please choose another space: " << endl;
         } else {
             cout << "Invalid space number. Enter another space number (1-15): ";
         }
@@ -237,6 +262,7 @@ void parkCar(string loggedInUser) {
     availableSpaces--;
     cout << "Car parked successfully in space " << spaceNumber << ". " << availableSpaces << " parking spaces remaining." << endl;
 }
+
 void unparkCar(string loggedInUser) {
     if (parkedCars.find(loggedInUser) == parkedCars.end()) {
         cout << "You do not have a car parked." << endl;
@@ -286,7 +312,7 @@ void createReservation() {
 
     while (spaceNumber < 1 || spaceNumber > 15 || parkingSpaces[spaceNumber - 1] != "Open") {
         if (parkingSpaces[spaceNumber - 1] != "Open") {
-            cout << "This parking slot is not available at the moment. Please choose another space." << endl;
+            cout << "This parking slot is not available at the moment. Please choose another space: " ;
         } else {
             cout << "Invalid space number. Enter another space number (1-15): ";
         }
@@ -308,14 +334,18 @@ void readReservations() {
 
 void updateReservation() {
     string username;
-    int newSpaceNumber, newPlateNumber;
+    int newSpaceNumber, enteredPlateNumber;
 
     cout << "Enter your username: ";
-    cin.ignore(); 
-    getline(cin, username); 
-    Reservation* reservation = reservations.findReservationByUser(username);
+    cin.ignore();
+    getline(cin, username);
+
+    cout << "Enter your original plate number: ";
+    enteredPlateNumber = getValidNumber();
+
+    Reservation* reservation = reservations.findReservationByUser(username, enteredPlateNumber);
     if (!reservation) {
-        cout << "You do not have a reservation." << endl;
+        cout << "No reservation found for the given username and plate number." << endl;
         return;
     }
 
@@ -323,41 +353,45 @@ void updateReservation() {
     newSpaceNumber = getValidNumber();
     while (newSpaceNumber < 1 || newSpaceNumber > 15 || parkingSpaces[newSpaceNumber - 1] != "Open") {
         if (parkingSpaces[newSpaceNumber - 1] != "Open") {
-            cout << "This parking slot is not available at the moment. Please choose another space." << endl;
+            cout << "This parking slot is not available at the moment. Please choose another space: ";
         } else {
             cout << "Invalid space number. Enter another space number (1-15): ";
         }
         newSpaceNumber = getValidNumber();
     }
 
-    cout << "Enter new Car Plate Number: ";
-    newPlateNumber = getValidNumber();
-
-    reservations.updateReservation(username, newSpaceNumber, newPlateNumber);
     parkingSpaces[reservation->spaceNumber - 1] = "Open";
+    reservations.updateReservation(username, newSpaceNumber, reservation->plateNumber);
     parkingSpaces[newSpaceNumber - 1] = "Reserved";
-    cout << "Reservation updated successfully!" << endl;
 }
 
 void deleteReservation() {
     string username;
+    int enteredPlateNumber;
+
     cout << "Enter your username: ";
     cin.ignore();
-    getline(cin, username); 
-    Reservation* reservation = reservations.findReservationByUser(username);
+    getline(cin, username);
+
+    cout << "Enter your plate number: ";
+    enteredPlateNumber = getValidNumber();
+
+    Reservation* reservation = reservations.findReservationByUser(username, enteredPlateNumber);
     if (!reservation) {
-        cout << "You do not have a reservation." << endl;
+        cout << "No reservation found for the given username and plate number." << endl;
         return;
     }
 
-    reservations.removeReservation(username);
-    parkingSpaces[reservation->spaceNumber - 1] = "Open";
+    int spaceNumber = reservation->spaceNumber;
+    reservations.removeReservation(username, enteredPlateNumber);
+    parkingSpaces[spaceNumber - 1] = "Open";
     availableSpaces++;
     cout << "Reservation deleted successfully!" << endl;
 }
 
+
 void showMainMenu() {
-    cout << "_________________________________________________" << endl;
+    cout << "_____________________________________________" << endl;
     cout << "\nWelcome to Park Smart. Quick Park!" << endl;
     cout << "\n1. Parking Menu" << endl;
     cout << "2. Reservation Menu" << endl;
@@ -366,7 +400,7 @@ void showMainMenu() {
 }
 
 void showParkingMenu() {
-    cout << "_________________________________________________";
+    cout << "_____________________________________________";
     cout << "\nParking Menu:";
     cout << "\n1. Park Car";
     cout << "\n2. Unpark Car";
@@ -376,7 +410,7 @@ void showParkingMenu() {
 }
 
 void showReservationMenu() {
-    cout << "___________________________________________________";
+    cout << "_______________________________________________";
     cout << "\nReservation Menu:";
     cout << "\n1. Create Reservation";
     cout << "\n2. Read Reservations";
@@ -398,7 +432,7 @@ int main() {
 
     do {
         if (!loggedIn) {
-            cout << "_____________________________" << endl;
+            cout << "_________________________" << endl;
             cout << "\nUser Registration!" << endl;
             cout << "1. Register" << endl;
             cout << "2. Login" << endl;
