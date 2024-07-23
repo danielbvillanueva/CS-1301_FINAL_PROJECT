@@ -391,34 +391,37 @@ void deleteReservation() {
 
 
 void showMainMenu() {
-    cout << "_____________________________________________" << endl;
-    cout << "\nWelcome to Park Smart. Quick Park!" << endl;
-    cout << "\n1. Parking Menu" << endl;
-    cout << "2. Reservation Menu" << endl;
-    cout << "3. Back to Login" << endl;
-    cout << "\n________________________________________________________" << endl;
+    cout << " ==========================================" << endl;
+    cout << "|    Welcome to Park Smart. Quick Park!    |" << endl;
+    cout << " ==========================================" << endl;
+    cout << "|           1. Parking Menu                |" << endl;
+    cout << "|           2. Reservation Menu            |" << endl;
+    cout << "|           3. Back to Login               |" << endl;
+    cout << "|__________________________________________|" << endl;
 }
 
 void showParkingMenu() {
-    cout << "_____________________________________________";
-    cout << "\nParking Menu:";
-    cout << "\n1. Park Car";
-    cout << "\n2. Unpark Car";
-    cout << "\n3. Check Available Spaces";
-    cout << "\n4. Back to Main Menu";
-    cout << "\n_______________________________________________________";
+    cout << " ..........................................." << endl;
+    cout << "|               Parking Menu:               |" << endl;
+    cout << " ..........................................." << endl;
+    cout << "|           1. Park Car                     |" << endl;
+    cout << "|           2. Unpark Car                   |" << endl;
+    cout << "|           3. Check Available Spaces       |" << endl;
+    cout << "|           4. Back to Main Menu            |" << endl;
+    cout << "|___________________________________________|" << endl;
 }
 
 void showReservationMenu() {
-    cout << "_______________________________________________";
-    cout << "\nReservation Menu:";
-    cout << "\n1. Create Reservation";
-    cout << "\n2. Read Reservations";
-    cout << "\n3. Update Reservation";
-    cout << "\n4. Delete Reservation";
-    cout << "\n5. Sort Reservations";
-    cout << "\n6. Back to Main Menu";
-    cout << "\n_________________________________________________________";
+    cout << " ---------------------------------------" << endl;
+    cout << "|           Reservation Menu:           |" << endl;
+    cout << " ---------------------------------------" << endl;
+    cout << "|        1. Create Reservation          |" << endl;
+    cout << "|        2. Read Reservations           |" << endl;
+    cout << "|        3. Update Reservation          |" << endl;
+    cout << "|        4. Delete Reservation          |" << endl;
+    cout << "|        5. Sort Reservations           |" << endl;
+    cout << "|        6. Back to Main Menu           |" << endl;
+    cout << "|_______________________________________|" << endl;
 }
 
 int main() {
@@ -432,12 +435,14 @@ int main() {
 
     do {
         if (!loggedIn) {
-            cout << "_________________________" << endl;
-            cout << "\nUser Registration!" << endl;
-            cout << "1. Register" << endl;
-            cout << "2. Login" << endl;
-            cout << "3. Exit" << endl;
-            cout << "\n__________________________________" << endl;
+            cout << " ________________________" << endl;
+            cout << "|                        |" << endl;
+            cout << "|   User Registration!   |" << endl;
+            cout << "|________________________|" << endl;
+            cout << "|  1. Register           |" << endl;
+            cout << "|  2. Login              |" << endl;
+            cout << "|  3. Exit               |" << endl;
+            cout << "|________________________|" << endl;
             cout << "Enter choice: ";
             choice = getValidNumber();
 
