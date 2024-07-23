@@ -8,7 +8,7 @@ A console-based application for managing parking spaces and reservations efficie
 1. [Project Overview](#-project-overview)
 2. [Objectives](#-objectives)
 3. [Features](#-features)
-4. [Technologies Used](#technologies-used)
+4. [Technologies Used](#-technologies-used)
 5. [Contributors](#-contributors)
 
 ## 🚗 Project Overview
