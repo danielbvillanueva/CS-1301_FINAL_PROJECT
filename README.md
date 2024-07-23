@@ -27,12 +27,12 @@ The Parking Management and Monitoring System aims to develop a comprehensive pla
 - Sorting Reservations by Space Number. 🔢
 
 ## ⚙️ Technologies Used
-### Backend
+Backend
 - **Programming Language:** C++
 - **Data Structures:** Linked List for reservations, Arrays for parking space management.
 - **Error Handling:** Implemented robust error handling mechanisms to manage unexpected events during system operation.
 
-### 👥 User Interface
+👥 User Interface
 - **Console-based:** Provides a user-friendly command-line interface for interacting with the parking management system.
 
 ## 👷‍ Contributors
