@@ -1,16 +1,15 @@
 # Parking Management and Monitoring System
 
-<img src="https://github.com/user-attachments/assets/e39d5641-da1f-4843-ac54-25cd367badae" alt="Screenshot_20240715_102032_Chrome" width="600"/>
-
+<img src="https://github.com/user-attachments/assets/e39d5641-da1f-4843-ac54-25cd367badae" alt="image" style="width: 400px; background-color: transparent;">
 
 A console-based application for managing parking spaces and reservations efficiently.
 
 ## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Objectives](#objectives)
-3. [Features](#features)
-4. [Technologies Used](#technologies-used)
-5. [Contributors](#contributors)
+1. [Project Overview](#-project-overview)
+2. [Objectives](#-objectives)
+3. [Features](#-features)
+4. [Technologies Used](#-technologies-used)
+5. [Contributors](#-contributors)
 
 ## 🚗 Project Overview
 The Parking Management and Monitoring System aims to develop a comprehensive platform that enhances user experience through efficient space management and reservation capabilities. The system addresses the increasing demand for organized parking solutions in urban areas.
@@ -37,15 +36,14 @@ The Parking Management and Monitoring System aims to develop a comprehensive pla
 - **Console-based:** Provides a user-friendly command-line interface for interacting with the parking management system.
 
 ## 👷‍ Contributors
-| Name                   | Role       | Email                          | Other Contacts        |
-|------------------------|------------|--------------------------------|-----------------------|
-| John C. Alcaraz         | Developer  | 23-07302@g.batstate-u.edu.ph     | -                     |
-| Paul C. Alcaraz         | Developer  | 23-09909@g.batstate-u.edu.ph      | -                     |
-| John Richnell A. Catibog | Developer  | 23-04985@g.batstate-u.edu.ph | -                   |
-| Daniel B. Villanueva     | Developer  | 23-01037@g.batstate-u.edu.ph  | -                     |
+| Name                    | Role       | Email                          | Other Contacts        |
+|-------------------------|------------|--------------------------------|-----------------------|
+| John C. Alcaraz         | Developer  | 23-07302@g.batstate-u.edu.ph   | -                     |
+| Paul C. Alcaraz         | Developer  | 23-09909@g.batstate-u.edu.ph   | -                     |
+| John Richnell A. Catibog | Developer | 23-04985@g.batstate-u.edu.ph   | -                     |
+| Daniel B. Villanueva    | Developer  | 23-01037@g.batstate-u.edu.ph   | -                     |
 
 ## Course: 
 - CS 131 (Data Structures and Algorithms)
 ## Course Facilitator: 
-- Ma'am Fatima Marie Agdon
-
+- Fatima Marie Agdon
