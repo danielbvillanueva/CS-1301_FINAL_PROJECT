@@ -26,7 +26,7 @@ The Parking Management and Monitoring System aims to develop a comprehensive pla
 - Reservation Creation, Viewing, Updating, and Deleting. 📅
 - Sorting Reservations by Space Number. 🔢
 
-## ⚙️ Technologies Used
+## ⚙️Technologies Used
 ### Backend
 - **Programming Language:** C++
 - **Data Structures:** Linked List for reservations, Arrays for parking space management.
