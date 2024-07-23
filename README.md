@@ -5,11 +5,11 @@
 A console-based application for managing parking spaces and reservations efficiently.
 
 ## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Objectives](#objectives)
-3. [Features](#features)
-4. [Technologies Used](#technologies-used)
-5. [Contributors](#contributors)
+1. [Project Overview](#-project-overview)
+2. [Objectives](#-objectives)
+3. [Features](#-features)
+4. [Technologies Used](#-technologies-used)
+5. [Contributors](#-contributors)
 
 ## 🚗 Project Overview
 The Parking Management and Monitoring System aims to develop a comprehensive platform that enhances user experience through efficient space management and reservation capabilities. The system addresses the increasing demand for organized parking solutions in urban areas.
