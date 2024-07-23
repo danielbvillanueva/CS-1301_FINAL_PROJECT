@@ -5,7 +5,7 @@
 
 A console-based application for managing parking spaces and reservations efficiently.
 
-## Table of Contents
+# Table of Contents
 1. [Project Overview](#project-overview)
 2. [Objectives](#objectives)
 3. [Features](#features)
